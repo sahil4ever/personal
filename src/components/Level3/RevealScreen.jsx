@@ -91,7 +91,7 @@ Sending you a tight virtual hug! 🤗❤️`;
     // 4. User Interaction
     const handleGiftClick = () => {
         audioManager.playSfx('pop');
-        audioManager.playTrack('/audio/sweet_song.mp3.mpeg', 2000);
+        audioManager.playTrack('/audio/sweet_song.mp3', 2000);
         setStage('gallery');
 
         confetti({
