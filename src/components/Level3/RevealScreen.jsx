@@ -213,26 +213,30 @@ Sending you a tight virtual hug! 🤗❤️`;
                         alignItems: 'center',
                         pointerEvents: 'auto',
                         overflowY: 'auto',
-                        padding: '2rem',
+                        padding: '1rem', // Reduced padding for mobile
                     }}
                 >
                     <div style={{
                         width: '100%',
-                        maxWidth: '800px',
+                        maxWidth: '90%', // Wider on mobile
                         textAlign: 'center',
                         position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}>
                         <h1 style={{
                             fontFamily: 'Playfair Display',
-                            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                            fontSize: 'clamp(1.2rem, 5vw, 2.5rem)', // Smaller min font size for mobile
                             color: '#FFF',
-                            lineHeight: '1.6',
-                            whiteSpace: 'pre-line', // Preserves newlines
+                            lineHeight: '1.5',
+                            whiteSpace: 'pre-line',
                             textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
-                            padding: '0',
-                            margin: '0 auto 2rem auto',
-                            minHeight: '200px', // Prevent layout shift
-                            display: 'inline-block', // Keeps text centered properly
+                            padding: '0 10px',
+                            margin: '0 auto 1.5rem auto',
+                            minHeight: '150px', // Slightly smaller min-height
+                            width: '100%',
                         }}>
                             {text}
                             <motion.span
@@ -240,29 +244,26 @@ Sending you a tight virtual hug! 🤗❤️`;
                                 transition={{ duration: 0.8, repeat: Infinity }}
                                 style={{
                                     display: 'inline-block',
-                                    marginLeft: '5px',
+                                    marginLeft: '2px',
                                     color: '#FFD700',
-                                    verticalAlign: 'middle'
+                                    verticalAlign: 'baseline'
                                 }}
                             >
                                 |
                             </motion.span>
                         </h1>
 
-                        <br />
-
                         <motion.p
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            // Start fading in "To the moon..." only after typing is mostly done
                             transition={{ delay: (fullText.length * 0.05) + 2, duration: 1 }}
                             style={{
-                                fontSize: '1.2rem',
+                                fontSize: 'clamp(0.9rem, 3vw, 1.2rem)', // Responsive font size
                                 color: '#FFD700',
-                                letterSpacing: '3px',
+                                letterSpacing: '2px',
                                 textTransform: 'uppercase',
                                 textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
-                                marginTop: '1rem',
+                                marginTop: '0.5rem',
                                 fontWeight: 'bold'
                             }}
                         >
