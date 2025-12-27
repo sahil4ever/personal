@@ -28,7 +28,6 @@ const PLACEHOLDER_PHOTOS = Array.from({ length: PHOTO_COUNT }).map((_, i) => {
 
 const RevealScreen = () => {
     const [stage, setStage] = useState('transition');
-    const [text, setText] = useState('');
     const fullText =
         `  Happy First Week, Pihu! 🥂✨
 
@@ -48,22 +47,8 @@ Sending you a tight virtual hug! 🤗❤️`;
         return () => clearTimeout(timer);
     }, []);
 
-    // 2. Typewriter Logic
-    useEffect(() => {
-        if (stage === 'gallery') {
-            let currentIndex = 0;
-            const typeChar = () => {
-                if (currentIndex < fullText.length) {
-                    setText(fullText.slice(0, currentIndex + 1));
-                    currentIndex++;
-                    setTimeout(typeChar, 50); // Typing speed
-                }
-            };
-            // Small delay before starting
-            const startTimeout = setTimeout(typeChar, 1000);
-            return () => clearTimeout(startTimeout);
-        }
-    }, [stage]);
+    // 2. Typewriter Logic - REMOVED for simplicity
+    // useEffect(() => { ... }, [stage]);
 
     // 3. ROSE RAIN EFFECT (High Contrast/Visibility)
     const [roses, setRoses] = useState([]);
@@ -238,25 +223,13 @@ Sending you a tight virtual hug! 🤗❤️`;
                             minHeight: '150px', // Slightly smaller min-height
                             width: '100%',
                         }}>
-                            {text}
-                            <motion.span
-                                animate={{ opacity: [1, 0] }}
-                                transition={{ duration: 0.8, repeat: Infinity }}
-                                style={{
-                                    display: 'inline-block',
-                                    marginLeft: '2px',
-                                    color: '#FFD700',
-                                    verticalAlign: 'baseline'
-                                }}
-                            >
-                                |
-                            </motion.span>
+                            {fullText}
                         </h1>
 
                         <motion.p
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: (fullText.length * 0.05) + 2, duration: 1 }}
+                            transition={{ delay: 2, duration: 1 }}
                             style={{
                                 fontSize: 'clamp(0.9rem, 3vw, 1.2rem)', // Responsive font size
                                 color: '#FFD700',
