@@ -51,17 +51,17 @@ Sending you a tight virtual hug! 🤗❤️`;
     // 2. Typewriter Logic
     useEffect(() => {
         if (stage === 'gallery') {
-            const chars = Array.from(fullText);
-            let index = 0;
-            const interval = setInterval(() => {
-                if (index < chars.length) {
-                    setText(prev => prev + chars[index]);
-                    index++;
-                } else {
-                    clearInterval(interval);
+            let currentIndex = 0;
+            const typeChar = () => {
+                if (currentIndex < fullText.length) {
+                    setText(fullText.slice(0, currentIndex + 1));
+                    currentIndex++;
+                    setTimeout(typeChar, 50); // Typing speed
                 }
-            }, 40);
-            return () => clearInterval(interval);
+            };
+            // Small delay before starting
+            const startTimeout = setTimeout(typeChar, 1000);
+            return () => clearTimeout(startTimeout);
         }
     }, [stage]);
 
@@ -211,30 +211,42 @@ Sending you a tight virtual hug! 🤗❤️`;
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        pointerEvents: 'auto', // Allow scrolling if needed
+                        pointerEvents: 'auto',
                         overflowY: 'auto',
-                        padding: '2rem 1rem', // Add padding to container
+                        padding: '2rem',
                     }}
                 >
                     <div style={{
                         width: '100%',
-                        maxWidth: '90%',
+                        maxWidth: '800px',
                         textAlign: 'center',
-                        // Container is now transparent (no blocking)
+                        position: 'relative',
                     }}>
                         <h1 style={{
                             fontFamily: 'Playfair Display',
-                            fontSize: 'clamp(1.2rem, 3.5vw, 2.2rem)',
+                            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
                             color: '#FFF',
                             lineHeight: '1.6',
-                            whiteSpace: 'pre-line',
+                            whiteSpace: 'pre-line', // Preserves newlines
                             textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
                             padding: '0',
-                            display: 'block',
                             margin: '0 auto 2rem auto',
-                            maxWidth: '800px',
+                            minHeight: '200px', // Prevent layout shift
+                            display: 'inline-block', // Keeps text centered properly
                         }}>
                             {text}
+                            <motion.span
+                                animate={{ opacity: [1, 0] }}
+                                transition={{ duration: 0.8, repeat: Infinity }}
+                                style={{
+                                    display: 'inline-block',
+                                    marginLeft: '5px',
+                                    color: '#FFD700',
+                                    verticalAlign: 'middle'
+                                }}
+                            >
+                                |
+                            </motion.span>
                         </h1>
 
                         <br />
@@ -242,19 +254,19 @@ Sending you a tight virtual hug! 🤗❤️`;
                         <motion.p
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 8, duration: 1 }}
+                            // Start fading in "To the moon..." only after typing is mostly done
+                            transition={{ delay: (fullText.length * 0.05) + 2, duration: 1 }}
                             style={{
-                                fontSize: '1rem',
-                                color: '#FFD700', // Gold
+                                fontSize: '1.2rem',
+                                color: '#FFD700',
                                 letterSpacing: '3px',
                                 textTransform: 'uppercase',
                                 textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
-                                padding: '0',
-                                display: 'block',
                                 marginTop: '1rem',
+                                fontWeight: 'bold'
                             }}
                         >
-                            To the moon and back
+                            To the moon and back 🌙
                         </motion.p>
                     </div>
                 </motion.div>
