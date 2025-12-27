@@ -118,19 +118,30 @@ const SpotlightSearch = ({ onComplete }) => {
                                 top: '50%',
                                 left: '50%',
                                 transform: 'translate(-50%, -50%)',
-                                padding: '2rem',
+                                padding: 'clamp(1.5rem, 5vw, 2.5rem)',
                                 border: '2px solid red',
-                                backgroundColor: 'rgba(0,0,0,0.9)',
+                                backgroundColor: 'rgba(0,0,0,0.95)',
                                 zIndex: 20,
-                                maxWidth: '90%',
-                                textAlign: 'center'
+                                width: '90vw',
+                                maxWidth: '500px',
+                                textAlign: 'center',
+                                borderRadius: '15px'
                             }}
                         >
-                            <h2 style={{ fontFamily: 'Nosifer', color: 'red', marginBottom: '1rem' }}>THE STEPS</h2>
-                            <p className="responsive-text" style={{ color: '#ccc', marginBottom: '1.5rem', textAlign: 'left', borderLeft: '3px solid red', paddingLeft: '1rem' }}>
-                                "Shor machati hoon par bolti nahi, Pairon mein bandhti hoon par chubh ti nahi.<br />
-                                Music mere bina adhoora hai, dance floor ka main craze hoon,<br />
-                                <span style={{ color: 'red', fontWeight: 'bold' }}>Jewelry Box</span> khol ke dekh, main tera final surprise hoon!"
+                            <h2 style={{ fontFamily: 'Nosifer', color: 'red', marginBottom: '1rem', fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>THE STEPS</h2>
+                            <p className="responsive-text" style={{
+                                color: '#ccc',
+                                marginBottom: '1.5rem',
+                                textAlign: 'center', // Centered looks better for riddles usually, but keeping readable
+                                borderLeft: '3px solid red',
+                                paddingLeft: '1rem',
+                                paddingRight: '1rem',
+                                lineHeight: '1.6',
+                                wordWrap: 'break-word'
+                            }}>
+                                "Shor machati hoon par bolti nahi, Pairon mein bandhti hoon par chubh ti nahi.
+                                Music mere bina adhoora hai, dance floor ka main craze hoon,
+                                <span style={{ color: 'red', fontWeight: 'bold' }}> Jewelry Box</span> khol ke dekh, main tera final surprise hoon!"
                             </p>
 
                             <form onSubmit={(e) => {

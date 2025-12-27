@@ -21,7 +21,7 @@ const PLACEHOLDER_PHOTOS = Array.from({ length: PHOTO_COUNT }).map((_, i) => {
         src: realPhotoSrc,
         x: (Math.random() - 0.5) * 180,
         rotate: (Math.random() - 0.5) * 20,
-        scale: 0.5 + Math.random() * 0.5,
+        scale: 0.8 + Math.random() * 0.4,
         delay: Math.random() * 20,
     };
 });
@@ -29,7 +29,8 @@ const PLACEHOLDER_PHOTOS = Array.from({ length: PHOTO_COUNT }).map((_, i) => {
 const RevealScreen = () => {
     const [stage, setStage] = useState('transition');
     const [text, setText] = useState('');
-    const fullText = `Happy 1st Week, Pihu! 🥂✨
+    const fullText =
+        `  Happy First Week, Pihu! 🥂✨
 
 Sach bataun toh pata hi nahi chala ye 7 din kaise nikal gaye...
 Time really flies when I’m with you. 🕰️💨
@@ -50,10 +51,11 @@ Sending you a tight virtual hug! 🤗❤️`;
     // 2. Typewriter Logic
     useEffect(() => {
         if (stage === 'gallery') {
+            const chars = Array.from(fullText);
             let index = 0;
             const interval = setInterval(() => {
-                if (index < fullText.length) {
-                    setText(prev => prev + fullText.charAt(index));
+                if (index < chars.length) {
+                    setText(prev => prev + chars[index]);
                     index++;
                 } else {
                     clearInterval(interval);
@@ -89,7 +91,7 @@ Sending you a tight virtual hug! 🤗❤️`;
     // 4. User Interaction
     const handleGiftClick = () => {
         audioManager.playSfx('pop');
-        audioManager.playTrack('/audio/sweet_song.mp3', 2000);
+        audioManager.playTrack('/audio/sweet_song.mp3.mpeg', 2000);
         setStage('gallery');
 
         confetti({
@@ -118,16 +120,7 @@ Sending you a tight virtual hug! 🤗❤️`;
             alignItems: 'center',
             perspective: '1000px'
         }}>
-            {/* Overlay for readability if image is too bright */}
-            {stage === 'gallery' && (
-                <div style={{
-                    position: 'absolute',
-                    top: 0, left: 0,
-                    width: '100%', height: '100%',
-                    background: 'rgba(0,0,0,0.4)', // 40% dark overlay
-                    zIndex: 1
-                }} />
-            )}
+
 
             {/* GIFT BOX */}
             <AnimatePresence>
@@ -156,7 +149,7 @@ Sending you a tight virtual hug! 🤗❤️`;
                         <motion.div
                             key={photo.id}
                             initial={{ x: `${photo.x}vw`, y: '110vh', opacity: 0, rotate: photo.rotate }}
-                            animate={{ y: '-120vh', opacity: [0, 1, 1, 0] }}
+                            animate={{ y: '-120vh', opacity: [0, 1, 1, 1, 0] }}
                             transition={{
                                 duration: 25 + Math.random() * 10,
                                 repeat: Infinity,
@@ -166,7 +159,7 @@ Sending you a tight virtual hug! 🤗❤️`;
                             style={{
                                 position: 'absolute',
                                 left: '50%',
-                                width: '180px',
+                                width: '220px',
                                 background: 'rgba(255,255,255,0.95)',
                                 padding: '10px 10px 30px 10px',
                                 boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
@@ -218,7 +211,9 @@ Sending you a tight virtual hug! 🤗❤️`;
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        pointerEvents: 'none',
+                        pointerEvents: 'auto', // Allow scrolling if needed
+                        overflowY: 'auto',
+                        padding: '2rem 1rem', // Add padding to container
                     }}
                 >
                     <div style={{
@@ -233,14 +228,11 @@ Sending you a tight virtual hug! 🤗❤️`;
                             color: '#FFF',
                             lineHeight: '1.6',
                             whiteSpace: 'pre-line',
-                            textShadow: '0 2px 10px rgba(0,0,0,0.9)', // Stronger shadow
-                            background: 'rgba(0, 0, 0, 0.5)', // Subtle dark backing for contrast
-                            padding: '1rem',
-                            borderRadius: '15px',
-                            display: 'inline',
-                            boxDecorationBreak: 'clone',
-                            WebkitBoxDecorationBreak: 'clone',
-                            marginBottom: '1rem',
+                            textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
+                            padding: '0',
+                            display: 'block',
+                            margin: '0 auto 2rem auto',
+                            maxWidth: '800px',
                         }}>
                             {text}
                         </h1>
@@ -256,13 +248,10 @@ Sending you a tight virtual hug! 🤗❤️`;
                                 color: '#FFD700', // Gold
                                 letterSpacing: '3px',
                                 textTransform: 'uppercase',
-                                textShadow: '0 2px 4px rgba(0,0,0,0.9)',
-                                background: 'rgba(0, 0, 0, 0.5)',
-                                padding: '0.5rem 1rem',
-                                borderRadius: '10px',
-                                display: 'inline',
-                                boxDecorationBreak: 'clone',
-                                WebkitBoxDecorationBreak: 'clone',
+                                textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
+                                padding: '0',
+                                display: 'block',
+                                marginTop: '1rem',
                             }}
                         >
                             To the moon and back
