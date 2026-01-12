@@ -3,17 +3,20 @@ import './styles/App.css';
 import audioManager from './utils/AudioManager';
 
 // Components
+import WelcomeScreen from './components/WelcomeScreen';
 import InvitationCard from './components/Level1/InvitationCard';
 import MemoryGrid from './components/Level2/MemoryGrid';
 import SpotlightSearch from './components/Level3/SpotlightSearch';
 import RevealScreen from './components/Level3/RevealScreen';
 
 function App() {
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Theme Logic: 1-3 = Horror, 4 = Pastel
-  const theme = level < 4 ? 'theme-horror' : 'theme-pastel';
+  // Theme Logic: 0 = Hacked, 1-3 = Horror, 4 = Pastel
+  let theme = 'theme-pastel';
+  if (level === 0) theme = 'theme-hacked';
+  else if (level < 4) theme = 'theme-horror';
 
   // Global Audio/Effect Logic
   useEffect(() => {
@@ -83,6 +86,7 @@ function App() {
         {level === 4 && !isTransitioning && <div className="flash-white" />}
 
         <div className="level-container">
+          {level === 0 && <WelcomeScreen onStart={() => setLevel(1)} />}
           {level === 1 && <InvitationCard onUnlock={() => setLevel(2)} />}
           {level === 2 && <MemoryGrid onComplete={() => setLevel(3)} />}
           {level === 3 && <SpotlightSearch onComplete={handleLevel3Complete} />}

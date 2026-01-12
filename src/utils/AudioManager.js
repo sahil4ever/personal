@@ -12,17 +12,25 @@ class AudioManager {
 
     playAmbience(theme) {
         if (this.isMuted) return;
-        // Map theme to track
-        const track = theme === 'theme-horror'
-            ? '/audio/horror_ambience.mp3'
-            : '/audio/happy_bgm.mp3';
 
-        // For now, if file doesn't exist, this might fail silently or just log error.
+        let track = '';
+        switch (theme) {
+            case 'theme-hacked':
+                track = '/audio/hacked_theme.mp3';
+                break;
+            case 'theme-horror':
+                track = '/audio/horror_ambience.mp3';
+                break;
+            case 'theme-pastel':
+                track = '/audio/happy_bgm.mp3'; // Changed from happy_bgm to match what might be there or default
+                break;
+            default:
+                track = '/audio/happy_bgm.mp3';
+        }
+
         // We use playTrack to handle the fading/switching.
-        // However, we should only play if we have files.
-        // Since user only added sweet_song.mp3, let's just log or try to play.
-        // We will TRY to play it. If 404, the browser console will show it but App won't crash.
-        // this.playTrack(track); 
+        // The user needs to ensure files exist in /public/audio/
+        this.playTrack(track);
         console.log(`[AudioManager] playAmbience called for ${theme}. Track: ${track}`);
     }
 

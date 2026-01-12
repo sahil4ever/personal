@@ -223,13 +223,14 @@ Love you always, forever and beyond! ❤️♾️`;
                             fontFamily: 'Playfair Display',
                             fontSize: 'clamp(1.2rem, 5vw, 2.5rem)', // Smaller min font size for mobile
                             color: '#FFF',
-                            lineHeight: '1.5',
+                            lineHeight: '1.6',
                             whiteSpace: 'pre-line',
-                            textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)',
-                            padding: '0 10px',
+                            textShadow: '0 0 10px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.8), 0 0 30px rgba(0,0,0,0.6)',
+                            padding: '20px',
                             margin: '0 auto 1.5rem auto',
                             minHeight: '150px', // Slightly smaller min-height
-                            width: '100%',
+                            width: 'fit-content',
+                            maxWidth: '100%',
                         }}>
                             {fullText}
                         </h1>
