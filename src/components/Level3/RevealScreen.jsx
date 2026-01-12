@@ -29,15 +29,23 @@ const PLACEHOLDER_PHOTOS = Array.from({ length: PHOTO_COUNT }).map((_, i) => {
 const RevealScreen = () => {
     const [stage, setStage] = useState('transition');
     const fullText =
-        `  Happy First Week, Pihu! 🥂✨
+        `Happy Birthday, My Beautiful Queen! 👑❤️
 
-Sach bataun toh pata hi nahi chala ye 7 din kaise nikal gaye...
-Time really flies when I’m with you. 🕰️💨
+Aaj ka din mere liye sabse khaas hai, kyunki aaj meri zindagi ki sabse haseen pari Ginni ka janam hua tha! 🎂🌸
 
-In just one week, you’ve become so special to me.
-Cheers to us and the start of something beautiful!
+Ginni, teri muskaan 🌟, jaise subah ki pehli dhoop ho 🌅, aur teri aankhein 🌸, jaise raat ka chamakta chand 🌙. Tere gaalon ka gulabi rang 🌹 mujhe ek khubsurat bagaicha yaad dilata hai. Teri baatein 🎶, jaise koel ki madhur awaaz aur teri adayein 💃, jaise ek nazakat bhara sapna!
 
-Sending you a tight virtual hug! 🤗❤️`;
+Tu meri zindagi ki roshni hai 🌟, meri dhadkan 💓, aur meri sabse badi taaqat hai 💪. Tere bina sab kuch adhoora lagta hai 🌌. Tu meri khushi hai, mera sukoon hai aur mere dil ka sabse khaas hissa hai ❤️.
+
+Mujhe Rab ka sabse bada tohfa tere roop mein mila hai 🎁✨. Teri hasi mere liye ek dua hai 🙏, aur tera saath meri zindagi ki sabse badi jeet hai 🏆.
+
+Aaj ke din bas yahi dua karta hoon ki teri saari wishes poori ho 🎉, teri zindagi khushiyon se bhari rahe 🌺, aur tu hamesha aise hi muskurati rahe 😊🌻.
+
+Teri zindagi mein rang barse 🌈, chandni chamke 🌙, aur tera har din khushboo se mehka rahe 🌸✨.
+
+Happy Birthday, My Angel! 🥳👸💖 Teri muskaan ke bina yeh duniya adhuri lagti hai. Tu meri zindagi ka sabse khoobsurat hissa hai! 🥰💐
+
+Love you always, forever and beyond! ❤️♾️`;
 
     // 1. Transition Logic
     useEffect(() => {
