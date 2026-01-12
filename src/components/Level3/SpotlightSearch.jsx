@@ -56,12 +56,12 @@ const SpotlightSearch = ({ onComplete }) => {
                 top: 0,
                 left: 0,
                 background: 'black',
-                cursor: 'none',
+                cursor: foundPayload ? 'default' : 'none', // Restore cursor when found
                 overflow: 'hidden'
             }}
         >
-            {/* Spotlight Mask */}
-            {isLightOn && (
+            {/* Spotlight Mask - Hide when found so it's clear */}
+            {isLightOn && !foundPayload && (
                 <div
                     style={{
                         position: 'absolute',
@@ -78,15 +78,6 @@ const SpotlightSearch = ({ onComplete }) => {
 
             {/* Hidden Content Container */}
             <div style={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}>
-
-                {/* Moving Shadows (Decorations) */}
-                <motion.div
-                    animate={{ x: [0, 100, -100, 0], y: [0, -50, 50, 0], opacity: [0, 0.5, 0] }}
-                    transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                    style={{ position: 'absolute', top: '20%', left: '20%', fontSize: '5rem', opacity: 0.1, color: '#111' }}
-                >
-                    👻
-                </motion.div>
 
                 {/* The Target: Payal */}
                 {!foundPayload && (
@@ -106,91 +97,90 @@ const SpotlightSearch = ({ onComplete }) => {
                     </div>
                 )}
 
-                {/* Clue UI (Appears when found) */}
-                <AnimatePresence>
-                    {foundPayload && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="glass-panel"
-                            style={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                padding: 'clamp(1.5rem, 5vw, 2.5rem)',
-                                border: '2px solid red',
-                                backgroundColor: 'rgba(0,0,0,0.95)',
-                                zIndex: 20,
-                                width: '90vw',
-                                maxWidth: '500px',
-                                textAlign: 'center',
-                                borderRadius: '15px'
-                            }}
-                        >
-                            <h2 style={{ fontFamily: 'Nosifer', color: 'red', marginBottom: '1rem', fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>THE STEPS</h2>
-                            <p className="responsive-text" style={{
-                                color: '#ccc',
-                                marginBottom: '1.5rem',
-                                textAlign: 'center', // Centered looks better for riddles usually, but keeping readable
-                                borderLeft: '3px solid red',
-                                paddingLeft: '1rem',
-                                paddingRight: '1rem',
-                                lineHeight: '1.6',
-                                wordWrap: 'break-word'
-                            }}>
-                                "Shor machati hoon par bolti nahi, Pairon mein bandhti hoon par chubh ti nahi.
-                                Music mere bina adhoora hai, dance floor ka main craze hoon,
-                                <span style={{ color: 'red', fontWeight: 'bold' }}> Jewelry Box</span> khol ke dekh, main tera final surprise hoon!"
-                            </p>
+                {/* Clue UI (Appears when found) - Static, High Contrast */}
+                {foundPayload && (
+                    <div
+                        className="glass-panel"
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            padding: 'clamp(1.5rem, 5vw, 2.5rem)',
+                            border: '2px solid red',
+                            backgroundColor: 'rgba(0,0,0,0.95)',
+                            zIndex: 100, // Ensure strictly on top
+                            width: '90vw',
+                            maxWidth: '500px',
+                            textAlign: 'center',
+                            borderRadius: '15px'
+                        }}
+                    >
+                        <h2 style={{ fontFamily: 'Nosifer', color: 'red', marginBottom: '1rem', fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>THE STEPS</h2>
+                        <p className="responsive-text" style={{
+                            color: '#ccc',
+                            marginBottom: '1.5rem',
+                            textAlign: 'center',
+                            borderLeft: '3px solid red',
+                            paddingLeft: '1rem',
+                            paddingRight: '1rem',
+                            lineHeight: '1.6',
+                            wordWrap: 'break-word'
+                        }}>
+                            "Shor machati hoon par bolti nahi, Pairon mein bandhti hoon par chubh ti nahi.
+                            Music mere bina adhoora hai, dance floor ka main craze hoon,
+                            <span style={{ color: 'red', fontWeight: 'bold' }}> Jewelry Box</span> khol ke dekh, main tera final surprise hoon!"
+                        </p>
 
-                            <form onSubmit={(e) => {
-                                e.preventDefault();
-                                const clean = answer.toLowerCase().trim();
-                                if (clean === 'payal' || clean === 'anklet') {
-                                    audioManager.playSfx('unlock_creak');
-                                    onComplete();
-                                } else {
-                                    setError(true);
-                                    audioManager.playSfx('jumpscare_short');
-                                    setTimeout(() => setError(false), 2000);
-                                }
-                            }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                <input
-                                    type="text"
-                                    placeholder="What did you find?"
-                                    value={answer}
-                                    onChange={(e) => setAnswer(e.target.value)}
-                                    style={{
-                                        background: 'rgba(0,0,0,0.5)',
-                                        border: error ? '2px solid red' : '1px solid #8a0303',
-                                        color: 'red',
-                                        padding: '10px',
-                                        fontFamily: 'Courier New',
-                                        fontSize: '1.2rem',
-                                        textAlign: 'center'
-                                    }}
-                                    autoFocus
-                                />
-                                <button
-                                    type="submit"
-                                    style={{
-                                        background: '#8a0303',
-                                        color: 'black',
-                                        border: 'none',
-                                        padding: '1rem 2rem',
-                                        fontFamily: 'Creepster',
-                                        fontSize: '1.5rem',
-                                        cursor: 'pointer',
-                                        boxShadow: '0 0 15px red'
-                                    }}
-                                >
-                                    UNLOCK FINAL LEVEL
-                                </button>
-                            </form>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            const clean = answer.toLowerCase().trim();
+                            if (clean === 'payal' || clean === 'anklet') {
+                                audioManager.playSfx('unlock_creak');
+                                onComplete();
+                            } else {
+                                setError(true);
+                                audioManager.playSfx('jumpscare_short');
+                                setTimeout(() => setError(false), 2000);
+                            }
+                        }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            <input
+                                type="text"
+                                placeholder="Type answer here..."
+                                value={answer}
+                                onChange={(e) => setAnswer(e.target.value)}
+                                style={{
+                                    background: '#FFF', // White background
+                                    border: error ? '3px solid red' : '2px solid #8a0303',
+                                    color: '#000', // Black text
+                                    padding: '15px',
+                                    fontFamily: 'Courier New',
+                                    fontWeight: 'bold',
+                                    fontSize: '1.2rem',
+                                    textAlign: 'center',
+                                    borderRadius: '5px'
+                                }}
+                                autoFocus
+                            />
+                            <button
+                                type="submit"
+                                style={{
+                                    background: '#8a0303',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '1rem 2rem',
+                                    fontFamily: 'Creepster',
+                                    fontSize: '1.5rem',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 0 15px red',
+                                    marginTop: '10px'
+                                }}
+                            >
+                                UNLOCK FINAL LEVEL
+                            </button>
+                        </form>
+                    </div>
+                )}
             </div>
 
             {/* Guide Text if lost */}
